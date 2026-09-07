@@ -1,0 +1,63 @@
+<%
+  # Clusters de démonstration affichés tant qu'aucun Tattoo réel n'a de "theme" renseigné.
+  demo_clusters = {
+    "Traits essentiels" => {
+      phrase: "une ligne, rien d'autre",
+      pieces: ["Ligne continue — avant-bras", "Point unique — poignet", "Contour simple — clavicule"]
+    },
+    "Formes géométriques" => {
+      phrase: "équilibre et symétrie",
+      pieces: ["Triangle épuré — omoplate", "Cercle simple — cheville", "Carré minimal — nuque"]
+    },
+    "Symboles discrets" => {
+      phrase: "réduits au strict nécessaire",
+      pieces: ["Initiale seule — doigt", "Petit trait — côte", "Point unique — poignet"]
+    }
+  }
+%>
+
+<section class="portfolio" id="portfolio">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-tag">Portfolio</span>
+        <h2>Une intention, un trait qui va à l'essentiel.</h2>
+      </div>
+      <p>Une sélection classée par intention plutôt que par zone du corps.</p>
+    </div>
+
+    <% if tattoo_clusters.present? %>
+      <% tattoo_clusters.each do |theme, tattoos| %>
+        <div class="cluster">
+          <div class="cluster-head">
+            <h3><%= theme.to_s.titleize %></h3>
+          </div>
+          <div class="cluster-grid">
+            <% tattoos.each do |tattoo| %>
+              <div class="piece">
+                <% if tattoo.respond_to?(:image) && tattoo.image.attached? %>
+                  <%= image_tag tattoo.image, alt: tattoo.try(:caption) %>
+                <% end %>
+                <span class="cap"><%= tattoo.try(:caption) || tattoo.try(:title) %></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <% demo_clusters.each do |title, data| %>
+        <div class="cluster">
+          <div class="cluster-head">
+            <h3><%= title %></h3>
+            <span class="phrase">— <%= data[:phrase] %></span>
+          </div>
+          <div class="cluster-grid">
+            <% data[:pieces].each do |caption| %>
+              <div class="piece"><span class="cap"><%= caption %></span></div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</section>

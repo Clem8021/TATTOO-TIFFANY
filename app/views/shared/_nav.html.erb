@@ -1,0 +1,14 @@
+<header class="nav">
+  <div class="nav-inner">
+    <%= link_to "Tiffany#{content_tag(:span, '.')}".html_safe, root_path, class: "logo" %>
+
+    <nav class="links">
+      <%= link_to "Univers", "#univers" %>
+      <%= link_to "Portfolio", "#portfolio" %>
+      <%= link_to "Avant / après", "#avant-apres" %>
+      <%= link_to "Avis", "#avis" %>
+    </nav>
+
+    <%= link_to "Réserver", new_booking_path, class: "nav-cta" %>
+  </div>
+</header>
